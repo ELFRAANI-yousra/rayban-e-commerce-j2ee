@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <package name="default" namespace="/" extends="struts-default">
+
+        <default-action-ref name="index"/>
+
+        <action name="index">
+            <result>
+                views/index.jsp
+            </result>
+        </action>
+<action name="df" class="action.usersAction" method="creatpdf">
+      <result name="success">/views/Articles.jsp</result>
+      <result name="failure"> views/index.jsp </result>
+     </action>
+
+
+     <action name="login" class="action.usersAction" method="execute">
+      <result name="f">/views/index.jsp</result>
+      <result name="s" type="chain">
+        <param name="actionName">articles</param>
+        <param name="namespace">/</param>
+        <param name="method">getAllArticles</param>
+      </result>
+     </action>
+
+     <action name="articles" class="action.articlesAction" method="getAllArticles">
+      <result name="success">/views/Articles.jsp</result>
+      <result name="failure"> views/index.jsp </result>
+     </action>
+     <action name="search" class="action.articlesAction" method="searchByMC">
+      <result name="success"> views/Articles.jsp </result>
+      <result name="failure"> views/index.jsp </result>
+     </action>
+      <action name="commandes" class="action.commandesAction" method="execute">
+      <result name="success"> views/Commandes.jsp </result>
+      <result name="failure"> views/index.jsp </result>
+     </action>
+       <action name="confirmation" class="action.commandesAction" method="confirmationCmd">
+       <result name="success" type="chain">
+        <param name="actionName">articles</param>
+        <param name="namespace">/</param>
+        <param name="method">getAllArticles</param>
+      </result>
+      <result name="failure"> views/index.jsp </result>
+      <result name="invalide" type="chain"> 
+        <param name="actionName">articles</param>
+        <param name="namespace">/</param>
+        <param name="method">getAllArticles</param>
+      </result>
+      
+     </action>
+     <action name="edit" class="action.usersAction" method="edit">
+      <result name="success"> views/Articles.jsp </result>
+      <result name="failure"> views/index.jsp </result>
+        <result name=" invalid"> views/editUserInfo.jsp </result>
+     </action>
+     <action name="logout" class="action.usersAction" method="logout">
+      <result name="success"> views/index.jsp </result>
+     </action>
+       <action name="editUserInfo" class="action.usersAction" method="editUI" >
+     <result name="success"> views/editUserInfo.jsp </result>
+      <result name="failure"> views/index.jsp </result>
+      </action>
+      
+    </package>
+
+    
+</struts>
